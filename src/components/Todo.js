@@ -1,10 +1,39 @@
 var React = require('react');
 var TodoForm = require('./TodoForm');
+var TodoList = require('./TodoList');
 
 class Todo extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            todos:[]
+        };
+        this.handleNewTodoItem = this.handleNewTodoItem.bind(this);
+         this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this);
+    }
+    
+    handleNewTodoItem(todo){
+        this.setState(function(prevState){
+            var todos = prevState.todos.concat(todo);
+
+            return{
+                todos: todos
+            };
+        })    
+    }
+    
+    handleDeleteBtnClick(index){
+        
+    }
+    
     render(){
+       
         return (
-            <TodoForm />
+            <div>
+             <TodoForm onNewTodoItem={this.handleNewTodoItem} />
+             <TodoList todos={this.state.todos} onDeleteBtnClick = {this.handleDeleteBtnClick}/>
+            </div>
+           
         );
     }
 }
