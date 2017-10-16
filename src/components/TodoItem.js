@@ -9,6 +9,7 @@ var TodoItem = function(props){
                 <button 
                     className="btn btn-default btn-danger pull-right"
                     onClick={props.onDeleteBtnClick}
+                    value={props.index}
                     >Delete</button>
             </h3>
         </li>
