@@ -6,7 +6,7 @@ var TodoList = function(props){
     var todos = props.todos;
     
     for(var i = 0; i < todos.length; i++){
-    todoList.push(<TodoItem todo={todos[i]} index={i} onDeleteBtnClick={props.onDeleteBtnClick}/>);
+    todoList.push(<TodoItem todo={todos[i]} key={Math.random()} index={i} onDeleteBtnClick={props.onDeleteBtnClick}/>);
     }
     
     return(
