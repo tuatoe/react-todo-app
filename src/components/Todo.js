@@ -7,7 +7,7 @@ class Todo extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            todos:[]
+            todos:['todo 1', 'todo 2']
         };
         this.handleNewTodoItem = this.handleNewTodoItem.bind(this);
          this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this);
