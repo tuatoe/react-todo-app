@@ -3,25 +3,51 @@ var React = require('react');
 class TodoForm extends React.Component{
     constructor(props){
         super(props);
-        this.inputRef = null;
+        this.state = {
+            todoText: ''
+        }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleRefInputEvt = this.handleRefInputEvt.bind(this);
+        this.handleInputTextChangeEvt = this.handleInputTextChangeEvt.bind(this);
     }
     
     handleFormSubmit(evt){
         evt.preventDefault();
-        var todo = this.inputRef.value;
-        this.props.onNewTodoItem(todo);
-        this.inputRef.value = ' ';
-    }
-    handleRefInputEvt(inputRef){
-        this.inputRef = inputRef;
+        this.props.onNewTodoItem(this.state.todoText);
+        
+        this.setState(function(){
+            return{
+                todoText: ''
+            }
+        })
     }
     
+     handleInputTextChangeEvt(evt){
+        var todoText = evt.target.value;
+        this.setState(function(){
+             return{
+                 todoText: todoText
+             };
+         });
+    }
+    
+    
+    handleRefInputEvt(inputRef){
+        inputRef.focus();
+    }
+    
+   
     render(){
         return(
             <form className="form-group" onSubmit={this.handleFormSubmit}>
-                <input className="form-control" type="text" placeholder="Add Todo Item" ref={this.handleRefInputEvt}/>
+                <input 
+                className="form-control" 
+                type="text" 
+                placeholder="Add Todo Item" 
+                ref={this.handleRefInputEvt}
+                value = {this.state.todoText}
+                onChange = {this.handleInputTextChangeEvt}
+                />
             </form>
         );
     }

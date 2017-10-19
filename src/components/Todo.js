@@ -9,13 +9,19 @@ class Todo extends React.Component{
         this.state = {
             todos:[]
         };
-        this.handleNewTodoItem = this.handleNewTodoItem.bind(this);
+         this.handleNewTodoItem = this.handleNewTodoItem.bind(this);
          this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this);
+        this.handleCheckboxClick = this.handleCheckboxClick.bind(this);
     }
     
     handleNewTodoItem(todo){
         this.setState(function(prevState){
-            var todos = prevState.todos.concat(todo);
+            var todoItem = {
+                todo: todo,
+                id:Date.now().toString(),
+                completed: false
+            }
+            var todos = prevState.todos.concat(todoItem);
 
             return{
                 todos: todos
@@ -24,10 +30,16 @@ class Todo extends React.Component{
     }
     
     handleDeleteBtnClick(evt){
-        var index = Number(evt.target.value);
+        var id = evt.target.value;
         this.setState(function(prevState){
             var todos = prevState.todos;
-        
+            var index = null;
+            for(var i = 0; i < todos.length; i++){
+                if(todos[i].id === id){
+                    index = i;
+                    break;
+                }
+            }
             //todos.splice(index,1); //Prefer not to mutate the state object
             todos = todos.slice(0,index).concat(todos.slice(index + 1));
             
@@ -37,6 +49,10 @@ class Todo extends React.Component{
         });
     }
     
+    handleCheckboxClick(evt){
+        console.log('inside checkbox method')
+    }
+    
     render(){
         var todos = this.state.todos;
        
@@ -44,7 +60,9 @@ class Todo extends React.Component{
             <div>
              <TodoForm onNewTodoItem={this.handleNewTodoItem} />
              <TodoList todos={todos} 
-                onDeleteBtnClick={this.handleDeleteBtnClick}/>
+                onDeleteBtnClick={this.handleDeleteBtnClick}
+                onCheckboxClick={this.handleCheckboxClick}
+            />
             <TodosCount todosCount={todos.length} />
             </div>
            
