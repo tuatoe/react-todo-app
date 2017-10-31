@@ -8,10 +8,8 @@ var TodoList = function(props){
     for(var i = 0; i < todos.length; i++){
     todoList.push(
         <TodoItem 
-          todo={todos[i].todo} 
           key={todos[i].id} 
-          id={todos[i].id}
-          completed={todos[i].completed}
+          todoItem = {todos[i]}
           onDeleteBtnClick={props.onDeleteBtnClick}
           onCheckboxClick={props.onCheckboxClick}
         />
